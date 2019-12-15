@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from "react";
 
-function TimeLeft({ timerMin, timerSec, playing }) {
+function TimeLeft({ timerMin, timerSec, playing, setPlaying }) {
   const [localMin, setLocalMin] = useState(25);
   const [localSec, setLocalSec] = useState(5);
+
+  function timerLogic() {
+    if (localMin === 0 && localSec === 0) {
+      setLocalSec(0);
+      setLocalMin(0);
+      setPlaying(false);
+    }
+    if (localSec === 0) {
+      setLocalSec(59);
+      setLocalMin(num => num - 1);
+    }
+    setLocalSec(num => num - 1);
+  }
 
   useEffect(() => {
     setLocalMin(timerMin);
     setLocalSec(timerSec);
     console.log("onho");
   }, []);
+
   useEffect(() => {
     if (playing) {
-      let id = setInterval(() => setLocalSec(sec => sec - 1), 1000);
+      let id = setInterval(() => timerLogic(), 1000);
       return () => clearInterval(id);
     }
   }, [playing, localSec]);

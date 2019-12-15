@@ -7,7 +7,12 @@ function Timer({ timerMin, setTimerMin, timerSec, setTimerSec, myReset }) {
   return (
     <section className="timer">
       <h2 id="timer-label">Session</h2>
-      <TimeLeft playing={playing} timerMin={timerMin} timerSec={timerSec} />
+      <TimeLeft
+        setPlaying={setPlaying}
+        playing={playing}
+        timerMin={timerMin}
+        timerSec={timerSec}
+      />
       <Controls myReset={myReset} playing={playing} setPlaying={setPlaying} />
     </section>
   );
