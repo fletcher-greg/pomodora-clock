@@ -7,6 +7,7 @@ function Session({ setTimerMin }) {
     if (session < 60) {
       setTimerMin(num => num + 1);
       setSession(num => num + 1);
+
       return;
     }
     return;

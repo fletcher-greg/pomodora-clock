@@ -9,6 +9,7 @@ function TimeLeft({ timerMin, timerSec, playing, setPlaying }) {
       setLocalSec(0);
       setLocalMin(0);
       setPlaying(false);
+      return;
     }
     if (localSec === 0) {
       setLocalSec(59);
@@ -25,7 +26,7 @@ function TimeLeft({ timerMin, timerSec, playing, setPlaying }) {
 
   useEffect(() => {
     if (playing) {
-      let id = setInterval(() => timerLogic(), 1000);
+      let id = setInterval(() => timerLogic(), 1);
       return () => clearInterval(id);
     }
   }, [playing, localSec]);
