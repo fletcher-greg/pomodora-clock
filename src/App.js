@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext, useReducer } from "react";
 import { reducer, initialState } from "./store/reducer";
 import "./App.css";
+import { CONNREFUSED } from "dns";
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="App">
-      <Break dispatch={dispatch} />
+      <Break state={state} dispatch={dispatch} />
       <Session dispatch={dispatch} />
       <Timer state={state} dispatch={dispatch} />
     </div>
@@ -24,6 +25,7 @@ function Break({ dispatch }) {
       return;
     }
     setBCount((bCount += 1));
+    dispatch({ type: "BINC" });
   }
 
   function dec() {
@@ -31,6 +33,7 @@ function Break({ dispatch }) {
       return;
     }
     setBCount((bCount -= 1));
+    dispatch({ type: "BDEC" });
   }
 
   function brTime() {

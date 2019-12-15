@@ -26,6 +26,17 @@ export function reducer(state, action) {
         ...state,
         session: { ...state.session, count: state.session.count - 1 }
       };
+    case "BINC":
+      return {
+        ...state,
+        bCount: { ...state.bCount, count: state.bCount.count + 1 }
+      };
+    case "BDEC":
+      console.log(state.bCount);
+      return {
+        ...state,
+        bCount: { ...state.bCount, count: state.bCount.count - 1 }
+      };
     default:
       return state;
   }
