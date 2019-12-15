@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-function TimeLeft({ timerMin, timerSec, playing, setPlaying }) {
+function TimeLeft({
+  update,
+  setUpdate,
+  timerMin,
+  timerSec,
+  playing,
+  setPlaying
+}) {
   const [localMin, setLocalMin] = useState(25);
   const [localSec, setLocalSec] = useState(5);
 
@@ -9,6 +16,7 @@ function TimeLeft({ timerMin, timerSec, playing, setPlaying }) {
       setLocalSec(0);
       setLocalMin(0);
       setPlaying(false);
+      //   setUpdate(false);
       return;
     }
     if (localSec === 0) {
@@ -23,6 +31,12 @@ function TimeLeft({ timerMin, timerSec, playing, setPlaying }) {
     setLocalSec(timerSec);
     console.log("onho");
   }, []);
+  useEffect(() => {
+    if (!playing && update) {
+      setLocalMin(timerMin);
+      setLocalSec(0);
+    }
+  }, [playing]);
 
   useEffect(() => {
     if (playing) {

@@ -2,8 +2,17 @@ import React, { useState } from "react";
 import Controls from "./Controls";
 import TimeLeft from "./TimeLeft";
 
-function Timer({ timerMin, setTimerMin, timerSec, setTimerSec, myReset }) {
-  const [playing, setPlaying] = useState(false);
+function Timer({
+  timerMin,
+  playing,
+  setPlaying,
+  setTimerMin,
+  timerSec,
+  setTimerSec,
+  myReset,
+  setUpdate,
+  update
+}) {
   return (
     <section className="timer">
       <h2 id="timer-label">Session</h2>
@@ -12,8 +21,15 @@ function Timer({ timerMin, setTimerMin, timerSec, setTimerSec, myReset }) {
         playing={playing}
         timerMin={timerMin}
         timerSec={timerSec}
+        update={update}
+        setUpdate={setUpdate}
       />
-      <Controls myReset={myReset} playing={playing} setPlaying={setPlaying} />
+      <Controls
+        setUpdate={setUpdate}
+        myReset={myReset}
+        playing={playing}
+        setPlaying={setPlaying}
+      />
     </section>
   );
 }

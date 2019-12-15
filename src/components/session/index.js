@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-function Session({ setTimerMin }) {
+function Session({ setTimerMin, setUpdate }) {
   const [session, setSession] = useState(25);
 
   function inc() {
     if (session < 60) {
       setTimerMin(num => num + 1);
       setSession(num => num + 1);
-
+      setUpdate(true);
       return;
     }
     return;
@@ -16,6 +16,7 @@ function Session({ setTimerMin }) {
     if (session > 0) {
       setSession(num => num - 1);
       setTimerMin(num => num - 1);
+      setUpdate(true);
       return;
     }
     return;
