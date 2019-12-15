@@ -1,14 +1,15 @@
-import React, {useState, useEffect, useContext} from 'react';
-
+import React, {useState, useEffect, useContext, useReducer} from 'react';
+import {reducer, initialState} from './store/reducer'
 import './App.css';
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState)
   
   return (
     <div className="App">
       <Break />
       <Session />
-      <Timer />
+      <Timer dispatch={dispatch} />
     </div>
   );
 }
@@ -18,6 +19,7 @@ export default App;
 
 
 function Break(){
+  
  let [bCount, setBCount] = useState(5)
 
  function inc(){
@@ -88,22 +90,22 @@ function Session(){
  }
 
 
- function Timer(){
+ function Timer({dispatch}){
    return <section className="timer">
      <h2 id="timer-label">Session</h2>
      <TimeLeft />
-     <Controls />
+     <Controls dispatch={dispatch}/>
    </section>
  }
 
 
- function TimeLeft (){
+ function TimeLeft ({state}){
    return <div className="time-left-wrapper"><p id="time-left">25:00</p></div>
  }
 
- function Controls(){
+ function Controls({dispatch}){
    return <div className="controls-wrapper">
-     <button id="start_stop">Start</button>
-     <button id="reset">Reset</button>
+     <button onClick={() => dispatch({type: 'START_STOP'})} id="start_stop">Start</button>
+     <button onClick={() => dispatch({type: 'SESSINC'})} id="reset">Reset</button>
    </div>
  }
