@@ -13,14 +13,18 @@ export function reducer(state, action) {
       console.log("reset");
       return initialState;
     case "SESSINC":
+      console.log("session inc");
+      console.log(state.session.count);
+      console.log(state.session);
       return {
         ...state,
-        session: { ...state.session.playing, count: (state.session.count += 1) }
+        session: { ...state.session, count: state.session.count + 1 }
       };
     case "SESSDEC":
+      console.log("session dec");
       return {
         ...state,
-        session: { ...state.session.playing, count: (state.session.count -= 1) }
+        session: { ...state.session, count: state.session.count - 1 }
       };
     default:
       return state;
