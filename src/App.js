@@ -142,7 +142,7 @@ function Controls({ dispatch }) {
       <button onClick={() => dispatch({ type: "START_STOP" })} id="start_stop">
         Start
       </button>
-      <button onClick={() => dispatch({ type: "SESSINC" })} id="reset">
+      <button onClick={() => dispatch({ type: "RESET" })} id="reset">
         Reset
       </button>
     </div>
