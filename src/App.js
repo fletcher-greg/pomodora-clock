@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext, useReducer } from "react";
 import { reducer, initialState } from "./store/reducer";
 import "./App.css";
-import { CONNREFUSED } from "dns";
 
 function App() {
-  const [dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="App">
-      <Break state={state} dispatch={dispatch} />
+      <Break dispatch={dispatch} />
       <Session dispatch={dispatch} />
       <Timer state={state} dispatch={dispatch} />
     </div>
@@ -105,33 +104,62 @@ function Timer({ state, dispatch }) {
     <section className="timer">
       <h2 id="timer-label">Session</h2>
       <TimeLeft state={state} />
-      <Controls dispatch={dispatch} />
+      <Controls state={state} dispatch={dispatch} />
     </section>
   );
 }
 
 function TimeLeft({ state }) {
-  const [count, setCount] = useState(25);
+  let [count, setCount] = useState(false);
+  let [seconds, setSeconds] = useState(0);
+  let [minutes, setMinutes] = useState(25);
+  let [isPlaying, setIsPlaying] = useState(false);
+  let { playing, session, bCount } = state;
+  function secDec() {
+    if (seconds === 0) {
+      setSeconds(60);
+      console.log("zero");
+      console.log(seconds);
+      setMinutes(minutes - 1);
+      return;
+    }
+    console.log("everything else");
+    setSeconds(seconds - 1);
+  }
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const { playing, session, bCount } = state;
+  function timerLogic() {
+    console.log("timer logic");
+    secDec();
+    if (isPlaying && session.play) {
+    }
+  }
   useEffect(() => {
-    setCount(playing);
+    setIsPlaying(playing);
     console.log("playing!");
   }, [playing]);
-  useEffect(() => {}, [session]);
+  useEffect(() => {
+    setInterval(() => timerLogic(), 1000);
+  });
+
+  function numFormat() {
+    if (Number(seconds) < 10) {
+      return `${minutes}:0${seconds}`;
+    } else {
+      return `${minutes}:${seconds}`;
+    }
+  }
 
   function CountDown() {
     if (session.playing) {
       return (
         <div className="time-left-wrapper">
-          <p id="time-left">{session.count}</p>
+          <p id="time-left">{numFormat()}</p>
         </div>
       );
     } else {
       return (
         <div className="time-left-wrapper">
-          <p id="time-left">{bCount.count}</p>
+          <p id="time-left">{numFormat()}</p>
         </div>
       );
     }
@@ -139,10 +167,21 @@ function TimeLeft({ state }) {
   return <CountDown />;
 }
 
-function Controls({ dispatch }) {
+function Controls({ state, dispatch }) {
   return (
     <div className="controls-wrapper">
-      <button onClick={() => dispatch({ type: "START_STOP" })} id="start_stop">
+      <button
+        onClick={() => {
+          if (state.isPlaying) {
+            console.log("it is true");
+            dispatch({ type: "START_STOP" });
+          } else {
+            console.log("set session true");
+            dispatch({ type: "SESSPLAY" });
+          }
+        }}
+        id="start_stop"
+      >
         Start
       </button>
       <button onClick={() => dispatch({ type: "RESET" })} id="reset">

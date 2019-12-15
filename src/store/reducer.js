@@ -37,6 +37,11 @@ export function reducer(state, action) {
         ...state,
         bCount: { ...state.bCount, count: state.bCount.count - 1 }
       };
+    case "SESSPLAY":
+      return {
+        ...state,
+        session: { ...state.session, playing: !state.session.playing }
+      };
     default:
       return state;
   }
