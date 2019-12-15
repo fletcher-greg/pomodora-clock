@@ -1,12 +1,12 @@
 import React from "react";
 
-function Controls() {
+function Controls({ playing, setPlaying, myReset }) {
   return (
     <div className="controls-wrapper">
-      <button onClick={() => {}} id="start_stop">
-        Start
+      <button onClick={() => setPlaying(!playing)} id="start_stop">
+        {playing ? "Pause" : "Start"}
       </button>
-      <button onClick={() => {}} id="reset">
+      <button onClick={() => myReset()} id="reset">
         Reset
       </button>
     </div>

@@ -1,16 +1,34 @@
 import React, { useState } from "react";
 
-function Session() {
+function Session({ setTimerMin }) {
+  const [session, setSession] = useState(25);
+
+  function inc() {
+    if (session < 60) {
+      setTimerMin(num => num + 1);
+      setSession(num => num + 1);
+      return;
+    }
+    return;
+  }
+  function dec() {
+    if (session > 0) {
+      setSession(num => num - 1);
+      setTimerMin(num => num - 1);
+      return;
+    }
+    return;
+  }
   return (
     <div>
       <h2 id="session-label">session Length</h2>
       <div className="session-content">
-        <h2 id="session-length">1</h2>
+        <h2 id="session-length">{session}:00</h2>
         <div className="btn-wrapper">
-          <button onClick={() => {}} id="session-decrement">
+          <button onClick={() => dec()} id="session-decrement">
             DEC
           </button>
-          <button onClick={() => {}} id="session-increment">
+          <button onClick={() => inc()} id="session-increment">
             INC
           </button>
         </div>
